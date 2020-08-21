@@ -13,6 +13,15 @@ export default () => (
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="Password" />
             </Form.Group>
+            <Form.Group controlId="formBasicRole">
+                <Form.Label>Role</Form.Label>
+                <Form.Control as="select">
+                    <option>Administrator</option>
+                    <option>Chief Librarian</option>
+                    <option>Librarian</option>
+                    <option>Reader</option>
+                </Form.Control>
+            </Form.Group>
             <Button variant="primary" type="submit">
                 Add User
             </Button>

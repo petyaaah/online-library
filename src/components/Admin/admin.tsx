@@ -4,6 +4,8 @@ import { Row, Col, Nav } from "react-bootstrap";
 import Users from './users';
 import AddUser from './add-user';
 import Calendar from './calendar';
+import Books from './books';
+import AddBook from './add-book';
 
 export default () => (
     <Row className="d-flex justify-content-center">
@@ -14,6 +16,12 @@ export default () => (
                 </Nav.Item>
                 <Nav.Item>
                     <Link className="nav-link" to="/admin/add-user">Add User</Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Link className="nav-link" to="/admin/books">Books</Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Link className="nav-link" to="/admin/add-book">Add Book</Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Link className="nav-link" to="/admin/calendar">Calendar</Link>
@@ -27,6 +35,12 @@ export default () => (
                 </Route>
                 <Route path="/admin/add-user">
                     <AddUser />
+                </Route>
+                <Route path="/admin/books">
+                    <Books />
+                </Route>
+                <Route path="/admin/add-book">
+                    <AddBook />
                 </Route>
                 <Route path="/admin/calendar">
                     <Calendar />
