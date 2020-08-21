@@ -1,30 +1,40 @@
-import React from 'react'
-import { Switch, Route, Link } from "react-router-dom";
-import { Row, Col, Nav } from "react-bootstrap";
+import React from 'react';
+import { Switch, Route, Link } from 'react-router-dom';
+import { Row, Col, Nav } from 'react-bootstrap';
 import Users from './users';
 import AddUser from './add-user';
 import Calendar from './calendar';
 import Books from './books';
 import AddBook from './add-book';
 
-export default () => (
+const Admin = () => (
     <Row className="d-flex justify-content-center">
         <Col className="d-flex justify-content-center" xs={12}>
             <Nav>
                 <Nav.Item>
-                    <Link className="nav-link" to="/admin/users">Users</Link>
+                    <Link className="nav-link" to="/admin/users">
+                        Users
+                    </Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Link className="nav-link" to="/admin/add-user">Add User</Link>
+                    <Link className="nav-link" to="/admin/add-user">
+                        Add User
+                    </Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Link className="nav-link" to="/admin/books">Books</Link>
+                    <Link className="nav-link" to="/admin/books">
+                        Books
+                    </Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Link className="nav-link" to="/admin/add-book">Add Book</Link>
+                    <Link className="nav-link" to="/admin/add-book">
+                        Add Book
+                    </Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Link className="nav-link" to="/admin/calendar">Calendar</Link>
+                    <Link className="nav-link" to="/admin/calendar">
+                        Calendar
+                    </Link>
                 </Nav.Item>
             </Nav>
         </Col>
@@ -48,4 +58,6 @@ export default () => (
             </Switch>
         </Col>
     </Row>
-)
+);
+
+export default Admin;

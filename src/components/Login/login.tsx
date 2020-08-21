@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Form, Button } from 'react-bootstrap';
 
-export default () => (
+const Login = () => (
     <Row className="d-flex justify-content-center">
         <Form className="col-6">
             <Form.Group controlId="formBasicEmail">
@@ -18,4 +18,6 @@ export default () => (
             </Button>
         </Form>
     </Row>
-)
+);
+
+export default Login;
