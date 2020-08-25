@@ -7,6 +7,7 @@
     "build": "tsc",
     "compile": "tsc && node src/index.js",
     "dev": "./node_modules/nodemon/bin/nodemon.js -e ts  --exec \"npm run compile\"",
+    "dev:win": "nodemon -e ts  --exec \"npm run compile\"",
     "tslint": "tslint -c tslint.json -t json -o tslint_report.json -p tsconfig.json --force '**/*{.ts,.tsx}'",
     "test": "mocha -r ts-node/register tests/**/**test.ts"
   },
