@@ -1,51 +1,39 @@
 import { Model, DataTypes } from 'sequelize';
 import { database } from '../database';
 
-export default class User extends Model { }
+export default class Book extends Model { }
 
-User.init(
+Book.init(
     {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
       },
-      username: {
+      title: {
         type: DataTypes.STRING(255)
       },
-      name: {
+      author: {
         type: DataTypes.STRING(255)
       },
-      address: {
+      IBSN: {
         type: DataTypes.STRING(255)
       },
-      phone: {
+      category: {
         type: DataTypes.STRING(255)
-      },
-      reader_number: {
-        type: DataTypes.STRING(255)
-      },
-      reader_number_date: {
-        type: DataTypes.DATE
       },
       branch_of_library: {
         type: DataTypes.INTEGER
       },
-      email: {
-        type: DataTypes.STRING(255)
-      },
-      password: {
-        type: DataTypes.STRING(255)
-      },
-      role: {
+      media_id: {
         type: DataTypes.INTEGER
       },
-      approved: {
-        type: DataTypes.BOOLEAN
+      quantity: {
+        type: DataTypes.INTEGER
       }
     },
     {
-      tableName: 'users',
+      tableName: 'books',
       sequelize: database // this bit is important
     }
 );

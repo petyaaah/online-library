@@ -1,8 +1,8 @@
 const Roles = {
-    'admin': { 'id': 1, 'text': 'Admin' },
-    'chief_librarian': { 'id': 2, 'text': 'Chief Librarian' },
-    'librarian': { 'id': 3, 'text': 'Librarian' },
-    'reader': { 'id': 4, 'text': 'Reader' }
+    'admin': { 'id': 1, 'text': 'Администратор' },
+    'chief_librarian': { 'id': 2, 'text': 'Главен библиотекар' },
+    'librarian': { 'id': 3, 'text': 'Библиотекар' },
+    'reader': { 'id': 4, 'text': 'Читател' }
 };
 
 export default Roles;

@@ -8,11 +8,14 @@ import SessionConfig from './config/Session';
 
 // Models
 import './models/Users';
-// import './models/Media';
+import './models/Books';
+import './models/Media';
 
 // Routes'
 import AuthRoutes from './routes/AuthRoutes';
 import UsersRoutes from './routes/UsersRoutes';
+import BooksRoutes from './routes/BooksRoutes';
+import ConstantsRoutes from './routes/ConstantsRoutes';
 
 const app = express();
 
@@ -37,6 +40,8 @@ app.use(session({
 // ROUTES
 app.use('/', AuthRoutes);
 app.use('/', UsersRoutes);
+app.use('/', BooksRoutes);
+app.use('/', ConstantsRoutes);
 
 const server = app.listen(app.get('port'), () => {
     console.log('Server on port', app.get('port'));
