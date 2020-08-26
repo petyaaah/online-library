@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, Row } from 'react-bootstrap';
 import { serverUrl } from '../../config';
+import { getToken } from '../../utils/auth';
 
 const AddUser = () => {
     const [state, setState] = useState({
@@ -20,16 +21,14 @@ const AddUser = () => {
 
     const onSubmit = async (e: any) => {
         if (e) e.preventDefault();
-        console.log(state);
         const response = await fetch(`${serverUrl}/users/create`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(state),
+            body: JSON.stringify({...state, token: getToken()}),
         });
         const user = await response.json();
-        console.log(user);
     };
 
     return (

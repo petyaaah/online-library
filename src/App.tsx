@@ -6,21 +6,17 @@ import Login from './components/Login/login';
 import Admin from './components/Admin/admin';
 import './App.css';
 
+import { PrivateRoute, AdminRoute } from './components/PrivateRoute/private-route'
+
 function App() {
     return (
         <Router>
             <div className="App">
                 <Nav />
                 <Switch>
-                    <Route path="/login">
-                        <Login />
-                    </Route>
-                    <Route path="/admin">
-                        <Admin />
-                    </Route>
-                    <Route path="/">
-                        <Home />
-                    </Route>
+                    <Route exact path="/login" component={Login} />
+                    <AdminRoute path="/admin" component={Admin} />
+                    <PrivateRoute exact path="/" component={Home} />
                 </Switch>
             </div>
         </Router>
