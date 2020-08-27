@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Form, Row, Alert } from 'react-bootstrap';
 import { serverUrl } from '../../config';
 import { getToken } from '../../utils/auth';
+import { getRoles } from '../../utils/constants';
 
 const AddUser = () => {
     const [state, setState] = useState({
@@ -15,8 +16,17 @@ const AddUser = () => {
         password: '',
     });
 
+    const [roles, setRoles] = useState([]);
+
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+
+    useEffect(() => {
+        getRoles().then((resp:any) => resp.json()).then((response: any) => {
+            const result: any = Object.keys(response.data).map((k: string) => response.data[k]);
+            setRoles(result);
+        })
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -101,10 +111,7 @@ const AddUser = () => {
                 <Form.Group controlId="formBasicRole">
                     <Form.Label>Role</Form.Label>
                     <Form.Control name="role" as="select" onChange={handleChange}>
-                        <option>Administrator</option>
-                        <option>Chief Librarian</option>
-                        <option>Librarian</option>
-                        <option>Reader</option>
+                        { roles.map((r: any) => <option key={r.id} value={r.id}>{r.text}</option>) }
                     </Form.Control>
                 </Form.Group>
                 <Button variant="primary" type="submit" disabled={!isFormValid()}>
