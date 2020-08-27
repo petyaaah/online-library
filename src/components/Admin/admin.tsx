@@ -3,6 +3,7 @@ import { Switch, Route, Link } from 'react-router-dom';
 import { Row, Col, Nav } from 'react-bootstrap';
 import Users from './users';
 import AddUser from './add-user';
+import EditUser from './edit-user';
 import Calendar from './calendar';
 import Books from './books';
 import AddBook from './add-book';
@@ -45,6 +46,9 @@ const Admin = () => (
                 </Route>
                 <Route path="/admin/add-user">
                     <AddUser />
+                </Route>
+                <Route path="/admin/edit-user/:id">
+                    <EditUser />
                 </Route>
                 <Route path="/admin/books">
                     <Books />

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import { serverUrl } from '../../config';
 import { getToken } from '../../utils/auth';
+import {withRouter} from "react-router-dom";
 
-const Users = () => {
+const Users = (props: any) => {
     const [users, setUsers] = useState([]);
     useEffect(() => {
         fetch(`${serverUrl}/users/getUsers`, { 
@@ -31,6 +32,9 @@ const Users = () => {
         console.log(result)
     }
 
+    const editUser = (user: any) => {
+        props.history.push(`/admin/edit-user/${user.id}`)
+    }
     
     const renderUsers = () =>
         users.map((user: any) => (
@@ -46,7 +50,7 @@ const Users = () => {
                     )
                 })}
                 <td>
-                    <Button className="mr-1" variant="warning">
+                    <Button className="mr-1" variant="warning" onClick={() => editUser(user)}>
                         Edit
                     </Button>
                     <Button variant="danger" onClick={() => deleteUser(user)}>Delete</Button>
@@ -79,4 +83,4 @@ const Users = () => {
     );
 }
 
-export default Users;
+export default withRouter(Users);
