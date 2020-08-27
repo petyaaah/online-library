@@ -11,13 +11,18 @@ import { PrivateRoute, AdminRoute } from './components/PrivateRoute/private-rout
 function App() {
     return (
         <Router>
-            <div className="App">
+            <div className="App d-flex flex-column h-100">
                 <Nav />
                 <Switch>
                     <Route exact path="/login" component={Login} />
                     <AdminRoute path="/admin" component={Admin} />
                     <PrivateRoute exact path="/" component={Home} />
                 </Switch>
+                <footer className="footer mt-auto py-3" style={{ backgroundColor: '#f5f5f5' }}>
+                    <div className="container">
+                        <span className="text-muted">Books Store - 2020</span>
+                    </div>
+                </footer>
             </div>
         </Router>
     );
