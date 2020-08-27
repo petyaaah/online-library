@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom'; 
-import { Row, Form, Button } from 'react-bootstrap';
+import { Row, Form, Button, Alert } from 'react-bootstrap';
 import { serverUrl } from '../../config';
 
 const Login = (props: any) => {
@@ -9,6 +9,7 @@ const Login = (props: any) => {
         username: "",
         password: ""
     })
+    const [error, setError] = useState('')
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -32,17 +33,17 @@ const Login = (props: any) => {
                 props.history.push('/')
                 window.location.reload()
             } catch (error) {
-                console.error("Something went wrong!")                
+                setError("Something went wrong!")
             }
         } else {
-            //display error
-            console.error("Invalid login!")
+            setError("Invalid Login!")
         }
     }
 
     return (
         <Row className="d-flex justify-content-center">
             <Form className="col-6" onSubmit={onSubmit}>
+                {error && <Alert variant="danger">{error}</Alert>}
                 <Form.Group controlId="formBasicUsername">
                     <Form.Label>Username</Form.Label>
                     <Form.Control value={state.username} name="username" type="text" placeholder="Enter username" onChange={handleChange} />
