@@ -7,17 +7,20 @@ import Admin from './components/Admin/admin';
 import './App.css';
 
 import { PrivateRoute, AdminRoute } from './components/PrivateRoute/private-route'
+import { Container } from 'react-bootstrap';
 
 function App() {
     return (
         <Router>
             <div className="App d-flex flex-column h-100">
                 <Nav />
-                <Switch>
-                    <Route exact path="/login" component={Login} />
-                    <AdminRoute path="/admin" component={Admin} />
-                    <PrivateRoute exact path="/" component={Home} />
-                </Switch>
+                <Container className="mb-5" style={{ minHeight: "800px" }}>
+                    <Switch>
+                        <Route exact path="/login" component={Login} />
+                        <AdminRoute path="/admin" component={Admin} />
+                        <PrivateRoute exact path="/" component={Home} />
+                    </Switch>
+                </Container>
                 <footer className="footer mt-auto py-3" style={{ backgroundColor: '#f5f5f5' }}>
                     <div className="container">
                         <span className="text-muted">Books Store - 2020</span>
