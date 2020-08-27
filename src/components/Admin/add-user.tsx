@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Row } from 'react-bootstrap';
+import { Button, Form, Row, Alert } from 'react-bootstrap';
 import { serverUrl } from '../../config';
 import { getToken } from '../../utils/auth';
 
@@ -14,6 +14,10 @@ const AddUser = () => {
         branch_of_library: '',
         password: '',
     });
+
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setState((prevState) => ({ ...prevState, [name]: value }));
@@ -28,7 +32,28 @@ const AddUser = () => {
             },
             body: JSON.stringify({...state, token: getToken()}),
         });
-        const user = await response.json();
+        const result = await response.json();
+        if (result.status) {
+            setSuccess(result.status_txt);
+            setState({
+                email: '',
+                username: '',
+                name: '',
+                address: '',
+                phone: '',
+                reader_number: '',
+                branch_of_library: '',
+                password: '',
+            })
+        } else {
+            setError(result.status_txt);
+        }
+    };
+
+    const isFormValid = () => {
+        const {email, username, name, address, phone, reader_number, branch_of_library, password} = state
+      
+        return email && username && name && address && phone && reader_number && branch_of_library && password;
     };
 
     return (
@@ -82,9 +107,11 @@ const AddUser = () => {
                         <option>Reader</option>
                     </Form.Control>
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" disabled={!isFormValid()}>
                     Add User
                 </Button>
+                {error && <Alert className="mt-5" variant="danger">{error}</Alert>}
+                {success && <Alert className="mt-5" variant="success">{success}</Alert>}
             </Form>
         </Row>
     );

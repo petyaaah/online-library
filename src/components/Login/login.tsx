@@ -36,14 +36,13 @@ const Login = (props: any) => {
                 setError("Something went wrong!")
             }
         } else {
-            setError("Invalid Login!")
+            setError(result.status_txt)
         }
     }
 
     return (
         <Row className="d-flex justify-content-center">
             <Form className="col-6" onSubmit={onSubmit}>
-                {error && <Alert variant="danger">{error}</Alert>}
                 <Form.Group controlId="formBasicUsername">
                     <Form.Label>Username</Form.Label>
                     <Form.Control value={state.username} name="username" type="text" placeholder="Enter username" onChange={handleChange} />
@@ -56,6 +55,7 @@ const Login = (props: any) => {
                 <Button variant="primary" type="submit">
                     Submit
                 </Button>
+                {error && <Alert className="mt-5" variant="danger">{error}</Alert>}
             </Form>
         </Row>
     )

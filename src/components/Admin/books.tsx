@@ -21,15 +21,15 @@ const Books = () => {
 
     const renderBooks = () =>
     books.map((book: any) => (
-        <tr>
+        <tr key={book.id}>
             {Object.keys(book).map((key: any) => {
                 if (key === "image") {
                     return (
-                        <td><img src={book[key]} width="50" /></td>
+                        <td key={key}><img src={book[key]} width="50" /></td>
                     )
                 }
                 return (
-                    <td>{book[key]}</td>
+                    <td key={key}>{book[key]}</td>
                 )
             })}
             <td>

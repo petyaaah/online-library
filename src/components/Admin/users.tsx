@@ -28,21 +28,48 @@ const Users = () => {
             body: JSON.stringify({ token: getToken(), id: user.id })
         })
         setUsers(users.filter((u: any) => u.id !== user.id))
-        console.log(result)
     }
 
+    const approve = async (id: number) => {
+        const result = await fetch(`${serverUrl}/users/approveUser`, { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ token: getToken(), id })
+        });
+
+        if (result.status) {
+            const updatedUsers: any = users.map((u: any) => {
+                if (u.id === id) {
+                    u.approved = true;
+                }
+                return u;
+            });
+
+            setUsers(updatedUsers);
+        }
+    }
+
+    const approveBtn = (id: number) => {
+        return (
+            <Button variant="primary" onClick={() => approve(id)}>
+                Approve
+            </Button>
+        )
+    };
     
     const renderUsers = () =>
         users.map((user: any) => (
-            <tr>
+            <tr key={user.id}>
                 {Object.keys(user).map((key: any) => {
                     if (key === 'approved') {
                         return (
-                            <td>{user[key] ? 'Yes' : 'No'}</td>
+                            <td key={key}>{user[key] ? 'Yes' : approveBtn(user.id)}</td>
                         )
                     }
                     return (
-                        <td>{user[key]}</td>
+                        <td key={key}>{user[key]}</td>
                     )
                 })}
                 <td>

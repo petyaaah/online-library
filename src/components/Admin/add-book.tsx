@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Row } from 'react-bootstrap';
+import { Button, Form, Row, Alert } from 'react-bootstrap';
 import FileBase64 from 'react-file-base64';
 import { serverUrl } from '../../config';
 import { getToken } from '../../utils/auth';
@@ -14,16 +14,19 @@ const AddBook = () => {
         branch_of_library: "",
         image: "",
         quantity: 1
-    })
+    });
+
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value }= e.target;
         setState((prevState) => ({ ...prevState, [name]: value }));
-    }
+    };
 
     const handleImageChange = (image: any) => {
         setState({ ...state, image: image.base64 })
-    }
+    };
 
     const onSubmit = async (e: any) => {
         if (e) e.preventDefault();
@@ -34,8 +37,28 @@ const AddBook = () => {
             },
             body: JSON.stringify({...state, token: getToken()}),
         });
-        const book = await response.json();
-    }
+        const result = await response.json();
+        if (result.status) {
+            setSuccess(result.status_txt);
+            setState({
+                title: "",
+                author: "",
+                IBSN: "",
+                category: "",
+                branch_of_library: "",
+                image: "",
+                quantity: 1
+            })
+        } else {
+            setError(result.status_txt);
+        }
+    };
+
+    const isFormValid = () => {
+        const {title, author, IBSN, category, branch_of_library, image, quantity} = state
+      
+        return title && author && IBSN && category && branch_of_library && image && quantity;
+    };
 
     return (
         <Row className="d-flex justify-content-center">
@@ -74,9 +97,12 @@ const AddBook = () => {
                     <Form.Control name="quantity" value={state.quantity} onChange={handleChange} type="number" placeholder="Quantity" />
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" disabled={!isFormValid()}>
                     Add Book
                 </Button>
+
+                {error && <Alert className="mt-5" variant="danger">{error}</Alert>}
+                {success && <Alert className="mt-5" variant="success">{success}</Alert>}
             </Form>
         </Row>
     )

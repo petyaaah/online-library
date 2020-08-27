@@ -10,3 +10,8 @@ export const checkIsAdmin = () => {
     const decoded: any = jwt.verify(token || '', jwtSecret)
     return decoded.role === 1
 }
+
+export const logout = () => {
+    sessionStorage.removeItem('token');
+    window.location.reload();
+}

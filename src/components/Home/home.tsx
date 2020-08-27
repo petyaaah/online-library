@@ -21,7 +21,7 @@ const Home = () => {
 
     const renderBooks = () =>
     books.map((book: any) => (
-        <Col xs={3} className="mr-5 mb-5 homepage-cards">
+        <Col xs={3} className="mr-5 mb-5 homepage-cards" key={book.id}>
             <Card style={{ width: '18rem' }}>
                 <div className="card-image">
                     <Card.Img variant="top" src={book.image} />

@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import { getToken, checkIsAdmin } from '../../utils/auth'
+import { getToken, checkIsAdmin, logout } from '../../utils/auth'
 
 const Navigation = () => (
     <Navbar bg="light" expand="lg">
@@ -23,6 +23,9 @@ const Navigation = () => (
                 <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                 <Button variant="outline-success">Search</Button>
             </Form>
+            {getToken() && <Button variant="default" className="ml-5" onClick={logout}>
+                    Logout
+            </Button>}
         </Navbar.Collapse>
     </Navbar>
 )
