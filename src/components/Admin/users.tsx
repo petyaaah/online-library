@@ -3,9 +3,13 @@ import { Table, Button } from 'react-bootstrap';
 import { serverUrl } from '../../config';
 import { getToken } from '../../utils/auth';
 import {withRouter} from "react-router-dom";
+import {getBranches, getRoles} from "../../utils/constants";
 
 const Users = (props: any) => {
     const [users, setUsers] = useState([]);
+    const [roles, setRoles] = useState([]);
+    const [branches, setBranches] = useState([]);
+
     useEffect(() => {
         fetch(`${serverUrl}/users/getUsers`, { 
             method: 'POST',
@@ -17,6 +21,15 @@ const Users = (props: any) => {
             setUsers(resp.data)
         }).catch((e: any) => {
             console.log(e)
+        })
+        getRoles().then((resp:any) => resp.json()).then((response: any) => {
+            const result: any = Object.keys(response.data).map((k: string) => response.data[k]);
+            console.log(result)
+            setRoles(result);
+        })
+        getBranches().then((resp:any) => resp.json()).then((response: any) => {
+            const result: any = Object.keys(response.data).map((k: string) => response.data[k]);
+            setBranches(result);
         })
     }, [])
 
@@ -62,6 +75,16 @@ const Users = (props: any) => {
     const editUser = (user: any) => {
         props.history.push(`/admin/edit-user/${user.id}`)
     }
+
+    const renderRole = (id: number) => {
+        const role: any = roles.find((role: any) => role.id === id);
+        return role.text;
+    }
+
+    const renderLibrary = (id: number) => {
+        const library: any = branches.find((branch: any) => branch.id === id);
+        return library.text;
+    }
     
     const renderUsers = () =>
         users.map((user: any) => (
@@ -70,6 +93,16 @@ const Users = (props: any) => {
                     if (key === 'approved') {
                         return (
                             <td key={key}>{user[key] ? 'Yes' : approveBtn(user.id)}</td>
+                        )
+                    }
+                    if (key === 'role') {
+                        return (
+                            <td key={key}>{renderRole(user.role)}</td>
+                        )
+                    }
+                    if (key === 'branch_of_library') {
+                        return (
+                            <td key={key}>{renderLibrary(user.branch_of_library)}</td>
                         )
                     }
                     return (

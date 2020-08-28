@@ -7,8 +7,16 @@ export const getToken = () => sessionStorage.getItem('token')
 export const checkIsAdmin = () => {
     const token = sessionStorage.getItem('token')
     if (!token) return false;
-    const decoded: any = jwt.verify(token || '', jwtSecret)
-    return decoded.role === 1
+    try {
+        const decoded: any = jwt.verify(token || '', jwtSecret)
+        return decoded.role === 1
+    } catch (e) {
+        console.error(e)
+        sessionStorage.removeItem('token');
+        window.location.reload();
+        return false;
+    }
+
 }
 
 export const logout = () => {

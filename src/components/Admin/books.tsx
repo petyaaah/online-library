@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Button, Table } from 'react-bootstrap';
 import { serverUrl } from '../../config';
 import { getToken } from '../../utils/auth';
+import {getBranches, getCategories} from "../../utils/constants";
 
-const Books = () => {
+const Books = (props:any) => {
     const [books, setBooks] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [branches, setBranches] = useState([]);
+
     useEffect(() => {
         fetch(`${serverUrl}/books/getBooks`, { 
             method: 'POST',
@@ -17,7 +22,29 @@ const Books = () => {
         }).catch((e: any) => {
             console.log(e)
         })
+        getCategories().then((resp:any) => resp.json()).then((response: any) => {
+            const result: any = Object.keys(response.data).map((k: string) => response.data[k]);
+            setCategories(result);
+        })
+        getBranches().then((resp:any) => resp.json()).then((response: any) => {
+            const result: any = Object.keys(response.data).map((k: string) => response.data[k]);
+            setBranches(result);
+        })
     }, []);
+
+    const editBook = (book: any) => {
+        props.history.push(`/admin/edit-book/${book.id}`)
+    }
+
+    const renderCategory = (id: number) => {
+        const category: any = categories.find((category: any) => category.id === Number(id));
+        return category.text;
+    }
+
+    const renderLibrary = (id: number) => {
+        const library: any = branches.find((branch: any) => branch.id === id);
+        return library?.text;
+    }
 
     const renderBooks = () =>
     books.map((book: any) => (
@@ -28,12 +55,22 @@ const Books = () => {
                         <td key={key}><img src={book[key]} width="50" /></td>
                     )
                 }
+                if (key === 'category') {
+                    return (
+                        <td key={key}>{renderCategory(book[key])}</td>
+                    )
+                }
+                if (key === 'branch_of_library') {
+                    return (
+                        <td key={key}>{renderLibrary(book[key])}</td>
+                    )
+                }
                 return (
                     <td key={key}>{book[key]}</td>
                 )
             })}
             <td>
-                <Button className="mr-1" variant="warning">
+                <Button className="mr-1" variant="warning" onClick={() => editBook(book)}>
                     Edit
                 </Button>
                 <Button variant="danger" onClick={() => deleteBook(book)}>Delete</Button>
@@ -60,8 +97,8 @@ const Books = () => {
                     <th>Title</th>
                     <th>Author</th>
                     <th>IBSN</th>
-                    <th>Category</th>
                     <th>Phone</th>
+                    <th>Category</th>
                     <th>Library</th>
                     <th>Image</th>
                     <th>Quantity</th>
@@ -75,4 +112,4 @@ const Books = () => {
     );
 }
 
-export default Books;
+export default withRouter(Books);

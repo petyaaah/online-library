@@ -1,29 +1,29 @@
 import React, {useEffect, useState} from 'react';
 import { withRouter } from 'react-router-dom';
+import FileBase64 from 'react-file-base64';
 import {Alert, Button, Form, Row} from 'react-bootstrap';
 import { serverUrl } from '../../config';
 import { getToken } from '../../utils/auth';
-import {getBranches, getRoles} from "../../utils/constants";
+import {getBranches, getCategories} from "../../utils/constants";
 
-const EditUser = (props: any) => {
+const EditBook = (props: any) => {
 
     const [state, setState] = useState({
-        email: '',
-        username: '',
-        name: '',
-        address: '',
-        phone: '',
-        reader_number: '',
-        branch_of_library: '',
-        role: '',
+        title: "",
+        author: "",
+        IBSN: "",
+        category: "",
+        branch_of_library: "",
+        image: "",
+        quantity: 1,
     })
-    const [roles, setRoles] = useState([]);
-    const [branches, setBranches] = useState([]);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [categories, setCategories] = useState([]);
+    const [branches, setBranches] = useState([]);
 
     useEffect(() => {
-        fetch(`${serverUrl}/users/getUser`, {
+        fetch(`${serverUrl}/books/getBook`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -34,9 +34,9 @@ const EditUser = (props: any) => {
         }).catch((e: any) => {
             console.log(e)
         })
-        getRoles().then((resp:any) => resp.json()).then((response: any) => {
+        getCategories().then((resp:any) => resp.json()).then((response: any) => {
             const result: any = Object.keys(response.data).map((k: string) => response.data[k]);
-            setRoles(result);
+            setCategories(result);
         })
         getBranches().then((resp:any) => resp.json()).then((response: any) => {
             const result: any = Object.keys(response.data).map((k: string) => response.data[k]);
@@ -49,9 +49,13 @@ const EditUser = (props: any) => {
         setState((prevState) => ({ ...prevState, [name]: value }));
     };
 
+    const handleImageChange = (image: any) => {
+        setState({ ...state, image: image.base64 })
+    };
+
     const onSubmit = async (e: any) => {
         if (e) e.preventDefault();
-        const response = await fetch(`${serverUrl}/users/updateUser`, {
+        const response = await fetch(`${serverUrl}/books/updateBook`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -66,37 +70,35 @@ const EditUser = (props: any) => {
         }
     };
 
+    const isFormValid = () => {
+        const {title, author, IBSN, category, branch_of_library, image, quantity} = state
+
+        return title && author && IBSN && category && branch_of_library && image && quantity;
+    };
+
     return (
         <Row className="d-flex justify-content-center">
             <Form className="col-6" onSubmit={onSubmit}>
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" name="email" placeholder="Enter email" value={state.email} onChange={handleChange} />
+                <Form.Group controlId="formBasicTitle">
+                    <Form.Label>Title</Form.Label>
+                    <Form.Control name="title" value={state.title} onChange={handleChange} type="text" placeholder="Title" />
                 </Form.Group>
 
-                <Form.Group controlId="formBasicUsername">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control type="text" name="username" placeholder="Enter username" value={state.username} onChange={handleChange} />
+                <Form.Group controlId="formBasicAuthor">
+                    <Form.Label>Author</Form.Label>
+                    <Form.Control name="author" value={state.author} onChange={handleChange} type="text" placeholder="Author" />
                 </Form.Group>
 
-                <Form.Group controlId="formBasicName">
-                    <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" name="name" placeholder="Enter name" value={state.name} onChange={handleChange} />
+                <Form.Group controlId="formBasicIBSN">
+                    <Form.Label>IBSN</Form.Label>
+                    <Form.Control name="IBSN" value={state.IBSN} onChange={handleChange} type="text" placeholder="IBSN" />
                 </Form.Group>
 
-                <Form.Group controlId="formBasicAddress">
-                    <Form.Label>Address</Form.Label>
-                    <Form.Control type="text" name="address" placeholder="Enter address" value={state.address} onChange={handleChange} />
-                </Form.Group>
-
-                <Form.Group controlId="formBasicPhone">
-                    <Form.Label>Phone</Form.Label>
-                    <Form.Control type="text" name="phone" placeholder="Enter phone" value={state.phone} onChange={handleChange} />
-                </Form.Group>
-
-                <Form.Group controlId="formBasicReaderNumber">
-                    <Form.Label>Reader Number</Form.Label>
-                    <Form.Control type="text" name="reader_number" placeholder="Enter reader number" value={state.reader_number} onChange={handleChange} />
+                <Form.Group controlId="formBasicCategory">
+                    <Form.Label>Category</Form.Label>
+                    <Form.Control name="category" as="select" value={state.category} onChange={handleChange}>
+                        { categories.map((c: any) => <option key={c.id} value={c.id}>{c.text}</option>) }
+                    </Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicBranchOfLibrary">
@@ -106,15 +108,20 @@ const EditUser = (props: any) => {
                     </Form.Control>
                 </Form.Group>
 
-                <Form.Group controlId="formBasicRole">
-                    <Form.Label>Role</Form.Label>
-                    <Form.Control name="role" as="select" value={state.role} onChange={handleChange}>
-                        { roles.map((r: any) => <option key={r.id} value={r.id}>{r.text}</option>) }
-                    </Form.Control>
+                <Form.Group controlId="formBasicImage">
+                    <img className="mb-3" src={state.image} alt="book_image" style={{ width: '200px', height: '300px' }} />
+                    <FileBase64 onDone={handleImageChange} />
                 </Form.Group>
-                <Button variant="primary" type="submit">
-                    Update User
+
+                <Form.Group controlId="formBasicQuantity">
+                    <Form.Label>Quantity</Form.Label>
+                    <Form.Control name="quantity" value={state.quantity} onChange={handleChange} type="number" placeholder="Quantity" />
+                </Form.Group>
+
+                <Button variant="primary" type="submit" disabled={!isFormValid()}>
+                    Update Book
                 </Button>
+
                 {error && <Alert className="mt-5" variant="danger">{error}</Alert>}
                 {success && <Alert className="mt-5" variant="success">{success}</Alert>}
             </Form>
@@ -122,4 +129,4 @@ const EditUser = (props: any) => {
     );
 }
 
-export default withRouter(EditUser);
+export default withRouter(EditBook);

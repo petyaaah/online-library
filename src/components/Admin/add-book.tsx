@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Button, Form, Row, Alert } from 'react-bootstrap';
 import FileBase64 from 'react-file-base64';
 import { serverUrl } from '../../config';
 import { getToken } from '../../utils/auth';
+import {getBranches, getCategories} from "../../utils/constants";
 
 const AddBook = () => {
 
+    const [categories, setCategories]: any = useState([]);
+    const [branches, setBranches]: any = useState([]);
     const [state, setState] = useState({
         title: "",
         author: "",
@@ -19,8 +22,20 @@ const AddBook = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
+    useEffect(() => {
+        Promise.all([getCategories(), getBranches()]).then(async ([c, b]) => {
+            const categoriesResponse = await c.json();
+            const branchesResponse = await b.json();
+            const categories: any = Object.keys(categoriesResponse.data).map((k: string) => categoriesResponse.data[k]);
+            const branches: any = Object.keys(branchesResponse.data).map((k: string) => branchesResponse.data[k]);
+            setCategories(categories);
+            setBranches(branches);
+            setState({ ...state, category: categories[0]?.id, branch_of_library: branches[0]?.id })
+        });
+    }, []);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value }= e.target;
+        const { name, value } = e.target;
         setState((prevState) => ({ ...prevState, [name]: value }));
     };
 
@@ -56,6 +71,7 @@ const AddBook = () => {
 
     const isFormValid = () => {
         const {title, author, IBSN, category, branch_of_library, image, quantity} = state
+        console.log({state})
       
         return title && author && IBSN && category && branch_of_library && image && quantity;
     };
@@ -80,15 +96,20 @@ const AddBook = () => {
 
                 <Form.Group controlId="formBasicCategory">
                     <Form.Label>Category</Form.Label>
-                    <Form.Control name="category" value={state.category} onChange={handleChange} type="text" placeholder="Category" />
+                    <Form.Control name="category" as="select" onChange={handleChange}>
+                        { categories.map((c: any) => <option key={c.id} value={c.id}>{c.text}</option>) }
+                    </Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicBranchOfLibrary">
                     <Form.Label>Branch Of Library</Form.Label>
-                    <Form.Control name="branch_of_library" value={state.branch_of_library} onChange={handleChange} type="text" placeholder="Branch Of Library" />
+                    <Form.Control name="branch_of_library" as="select" onChange={handleChange}>
+                        { branches.map((b: any) => <option key={b.id} value={b.id}>{b.text}</option>) }
+                    </Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicImage">
+                    {state.image && <img className="mb-3" src={state.image} alt="book_image" style={{ width: '200px', height: '300px' }} />}
                     <FileBase64 onDone={handleImageChange} />
                 </Form.Group>
 

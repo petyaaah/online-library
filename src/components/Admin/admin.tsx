@@ -7,6 +7,7 @@ import EditUser from './edit-user';
 import Calendar from './calendar';
 import Books from './books';
 import AddBook from './add-book';
+import EditBook from './edit-book';
 
 const Admin = () => (
     <Row className="d-flex justify-content-center">
@@ -55,6 +56,9 @@ const Admin = () => (
                 </Route>
                 <Route path="/admin/add-book">
                     <AddBook />
+                </Route>
+                <Route path="/admin/edit-book/:id">
+                    <EditBook />
                 </Route>
                 <Route path="/admin/calendar">
                     <Calendar />

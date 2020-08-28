@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Form, Row, Alert } from 'react-bootstrap';
 import { serverUrl } from '../../config';
 import { getToken } from '../../utils/auth';
-import { getRoles } from '../../utils/constants';
+import {getRoles, getBranches} from '../../utils/constants';
 
 const AddUser = () => {
     const [state, setState] = useState({
@@ -14,10 +14,11 @@ const AddUser = () => {
         reader_number: '',
         branch_of_library: '',
         password: '',
+        role: '',
     });
 
-    const [roles, setRoles] = useState([]);
-
+    const [roles, setRoles]: any = useState([]);
+    const [branches, setBranches]: any = useState([]);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
@@ -26,6 +27,19 @@ const AddUser = () => {
             const result: any = Object.keys(response.data).map((k: string) => response.data[k]);
             setRoles(result);
         })
+        getBranches().then((resp:any) => resp.json()).then((response: any) => {
+            const result: any = Object.keys(response.data).map((k: string) => response.data[k]);
+            setBranches(result);
+        })
+        Promise.all([getRoles(), getBranches()]).then(async ([r, b]) => {
+            const rolesResponse = await r.json();
+            const branchesResponse = await b.json();
+            const roles: any = Object.keys(rolesResponse.data).map((k: string) => rolesResponse.data[k]);
+            const branches: any = Object.keys(branchesResponse.data).map((k: string) => branchesResponse.data[k]);
+            setRoles(roles);
+            setBranches(branches);
+            setState({ ...state, role: roles[0]?.id, branch_of_library: branches[0]?.id })
+        });
     }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,6 +68,7 @@ const AddUser = () => {
                 reader_number: '',
                 branch_of_library: '',
                 password: '',
+                role: '',
             })
         } else {
             setError(result.status_txt);
@@ -101,7 +116,9 @@ const AddUser = () => {
 
                 <Form.Group controlId="formBasicBranchOfLibrary">
                     <Form.Label>Branch Of Library</Form.Label>
-                    <Form.Control type="text" name="branch_of_library" placeholder="Enter branch of library" onChange={handleChange} />
+                    <Form.Control name="branch_of_library" as="select" onChange={handleChange}>
+                        { branches.map((b: any) => <option key={b.id} value={b.id}>{b.text}</option>) }
+                    </Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
