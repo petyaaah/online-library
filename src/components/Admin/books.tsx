@@ -71,7 +71,7 @@ const Books = (props:any) => {
             })}
             <td>
                 <Button className="mr-1" variant="warning" onClick={() => editBook(book)}>
-                    Edit
+                    Актуализиране
                 </Button>
                 <Button variant="danger" onClick={() => deleteBook(book)}>Delete</Button>
             </td>
@@ -94,15 +94,15 @@ const Books = (props:any) => {
         <Table striped bordered responsive>
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Author</th>
+                    <th>Заглавие</th>
+                    <th>Автор</th>
                     <th>IBSN</th>
-                    <th>Phone</th>
-                    <th>Category</th>
-                    <th>Library</th>
-                    <th>Image</th>
-                    <th>Quantity</th>
-                    <th>Actions</th>
+                    <th>Телефон</th>
+                    <th>Категория</th>
+                    <th>Библиотека</th>
+                    <th>Снимка</th>
+                    <th>Количество</th>
+                    <th>Действие</th>
                 </tr>
             </thead>
             <tbody>
