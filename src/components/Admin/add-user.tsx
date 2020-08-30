@@ -132,7 +132,7 @@ const AddUser = () => {
                     </Form.Control>
                 </Form.Group>
                 <Button variant="primary" type="submit" disabled={!isFormValid()}>
-                    Add User
+                    Добави потребител
                 </Button>
                 {error && <Alert className="mt-5" variant="danger">{error}</Alert>}
                 {success && <Alert className="mt-5" variant="success">{success}</Alert>}
