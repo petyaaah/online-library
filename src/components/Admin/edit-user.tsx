@@ -70,50 +70,50 @@ const EditUser = (props: any) => {
         <Row className="d-flex justify-content-center">
             <Form className="col-6" onSubmit={onSubmit}>
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
+                    <Form.Label>Email адрес</Form.Label>
                     <Form.Control type="email" name="email" placeholder="Enter email" value={state.email} onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicUsername">
-                    <Form.Label>Username</Form.Label>
+                    <Form.Label>Потребителско име</Form.Label>
                     <Form.Control type="text" name="username" placeholder="Enter username" value={state.username} onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicName">
-                    <Form.Label>Name</Form.Label>
+                    <Form.Label>Име</Form.Label>
                     <Form.Control type="text" name="name" placeholder="Enter name" value={state.name} onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicAddress">
-                    <Form.Label>Address</Form.Label>
+                    <Form.Label>Адрес</Form.Label>
                     <Form.Control type="text" name="address" placeholder="Enter address" value={state.address} onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPhone">
-                    <Form.Label>Phone</Form.Label>
+                    <Form.Label>Телефон</Form.Label>
                     <Form.Control type="text" name="phone" placeholder="Enter phone" value={state.phone} onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicReaderNumber">
-                    <Form.Label>Reader Number</Form.Label>
+                    <Form.Label>Читателски номер</Form.Label>
                     <Form.Control type="text" name="reader_number" placeholder="Enter reader number" value={state.reader_number} onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicBranchOfLibrary">
-                    <Form.Label>Branch Of Library</Form.Label>
+                    <Form.Label>Филиал на библиотеката</Form.Label>
                     <Form.Control name="branch_of_library" as="select" value={state.branch_of_library} onChange={handleChange}>
                         { branches.map((b: any) => <option key={b.id} value={b.id}>{b.text}</option>) }
                     </Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicRole">
-                    <Form.Label>Role</Form.Label>
+                    <Form.Label>Роля</Form.Label>
                     <Form.Control name="role" as="select" value={state.role} onChange={handleChange}>
                         { roles.map((r: any) => <option key={r.id} value={r.id}>{r.text}</option>) }
                     </Form.Control>
                 </Form.Group>
                 <Button variant="primary" type="submit">
-                    Update User
+                    Актуализирай потребител
                 </Button>
                 {error && <Alert className="mt-5" variant="danger">{error}</Alert>}
                 {success && <Alert className="mt-5" variant="success">{success}</Alert>}
