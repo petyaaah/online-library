@@ -15,27 +15,27 @@ const Admin = () => (
             <Nav>
                 <Nav.Item>
                     <Link className="nav-link" to="/admin/users">
-                        Users
+                        Потребители
                     </Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Link className="nav-link" to="/admin/add-user">
-                        Add User
+                        Добави потребител
                     </Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Link className="nav-link" to="/admin/books">
-                        Books
+                        Книги
                     </Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Link className="nav-link" to="/admin/add-book">
-                        Add Book
+                        Добави книга
                     </Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Link className="nav-link" to="/admin/calendar">
-                        Calendar
+                        Календар
                     </Link>
                 </Nav.Item>
             </Nav>
