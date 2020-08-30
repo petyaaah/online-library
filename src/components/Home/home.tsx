@@ -29,10 +29,10 @@ const Home = () => {
                 <Card.Body>
                     <Card.Title>{book.title}</Card.Title>
                     <Card.Text style={{ textAlign: 'left' }}>
-                        <p><b>Author:</b> {book.author}</p>
+                        <p><b>Автор:</b> {book.author}</p>
                         <p><b>IBSN:</b> {book.IBSN}</p>
-                        <p><b>Category:</b> {book.category}</p>
-                        <p><b>Quantity:</b> {book.quantity}</p>
+                        <p><b>Категория:</b> {book.category}</p>
+                        <p><b>Количество:</b> {book.quantity}</p>
                     </Card.Text>
                 </Card.Body>
             </Card>
