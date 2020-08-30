@@ -68,7 +68,7 @@ const Users = (props: any) => {
     const approveBtn = (id: number) => {
         return (
             <Button variant="primary" onClick={() => approve(id)}>
-                Approve
+                Потвърди
             </Button>
         )
     };
@@ -111,7 +111,7 @@ const Users = (props: any) => {
                 })}
                 <td>
                     <Button className="mr-1" variant="warning" onClick={() => editUser(user)}>
-                        Edit
+                        Актуализирай
                     </Button>
                     <Button variant="danger" onClick={() => deleteUser(user)}>Delete</Button>
                 </td>
@@ -123,17 +123,17 @@ const Users = (props: any) => {
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Username</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Phone</th>
-                    <th>Number</th>
-                    <th>Date</th>
-                    <th>Library</th>
+                    <th>Потребителско име</th>
+                    <th>Име</th>
+                    <th>Адрес</th>
+                    <th>Телефон</th>
+                    <th>Читателски номер</th>
+                    <th>Дата</th>
+                    <th>Филиал на библиотеката</th>
                     <th>Email</th>
-                    <th>Role</th>
-                    <th>Approved</th>
-                    <th>Actions</th>
+                    <th>Роля</th>
+                    <th>Потвърден</th>
+                    <th>Действия</th>
                 </tr>
             </thead>
             <tbody>
