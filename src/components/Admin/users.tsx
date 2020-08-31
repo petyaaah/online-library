@@ -111,9 +111,9 @@ const Users = (props: any) => {
                 })}
                 <td>
                     <Button className="mr-1" variant="warning" onClick={() => editUser(user)}>
-                        Актуализирай
+                        Актуализиране
                     </Button>
-                    <Button variant="danger" onClick={() => deleteUser(user)}>Delete</Button>
+                    <Button variant="danger" onClick={() => deleteUser(user)}>Изтриване</Button>
                 </td>
             </tr>
         ))
