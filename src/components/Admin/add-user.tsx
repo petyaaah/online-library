@@ -85,48 +85,48 @@ const AddUser = () => {
         <Row className="d-flex justify-content-center">
             <Form className="col-6" onSubmit={onSubmit}>
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
+                    <Form.Label>Email адрес</Form.Label>
                     <Form.Control type="email" name="email" placeholder="Enter email" onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicUsername">
-                    <Form.Label>Username</Form.Label>
+                    <Form.Label>Потребителско име</Form.Label>
                     <Form.Control type="text" name="username" placeholder="Enter username" onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicName">
-                    <Form.Label>Name</Form.Label>
+                    <Form.Label>Име</Form.Label>
                     <Form.Control type="text" name="name" placeholder="Enter name" onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicAddress">
-                    <Form.Label>Address</Form.Label>
+                    <Form.Label>Адрес</Form.Label>
                     <Form.Control type="text" name="address" placeholder="Enter address" onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPhone">
-                    <Form.Label>Phone</Form.Label>
+                    <Form.Label>Телефон</Form.Label>
                     <Form.Control type="text" name="phone" placeholder="Enter phone" onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicReaderNumber">
-                    <Form.Label>Reader Number</Form.Label>
+                    <Form.Label>Читателски номер</Form.Label>
                     <Form.Control type="text" name="reader_number" placeholder="Enter reader number" onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicBranchOfLibrary">
-                    <Form.Label>Branch Of Library</Form.Label>
+                    <Form.Label>Филиал на библиотеката</Form.Label>
                     <Form.Control name="branch_of_library" as="select" onChange={handleChange}>
                         { branches.map((b: any) => <option key={b.id} value={b.id}>{b.text}</option>) }
                     </Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
+                    <Form.Label>Парола</Form.Label>
                     <Form.Control type="password" name="password" placeholder="Password" onChange={handleChange} />
                 </Form.Group>
                 <Form.Group controlId="formBasicRole">
-                    <Form.Label>Role</Form.Label>
+                    <Form.Label>Роля</Form.Label>
                     <Form.Control name="role" as="select" onChange={handleChange}>
                         { roles.map((r: any) => <option key={r.id} value={r.id}>{r.text}</option>) }
                     </Form.Control>
