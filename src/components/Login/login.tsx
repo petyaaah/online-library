@@ -44,13 +44,13 @@ const Login = (props: any) => {
         <Row className="d-flex justify-content-center">
             <Form className="col-6" onSubmit={onSubmit}>
                 <Form.Group controlId="formBasicUsername">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control value={state.username} name="username" type="text" placeholder="Enter username" onChange={handleChange} />
+                    <Form.Label>Потребителско име</Form.Label>
+                    <Form.Control value={state.username} name="username" type="text" placeholder="Въведете потребителско име" onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control value={state.password} name="password" type="password" placeholder="Password" onChange={handleChange} />
+                    <Form.Label>Парола</Form.Label>
+                    <Form.Control value={state.password} name="password" type="password" placeholder="Въведете Парола" onChange={handleChange} />
                 </Form.Group>
                 <Button variant="primary" type="submit">
                     Вход
