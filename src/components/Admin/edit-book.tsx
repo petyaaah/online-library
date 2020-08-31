@@ -80,12 +80,12 @@ const EditBook = (props: any) => {
         <Row className="d-flex justify-content-center">
             <Form className="col-6" onSubmit={onSubmit}>
                 <Form.Group controlId="formBasicTitle">
-                    <Form.Label>Title</Form.Label>
+                    <Form.Label>Заглавие</Form.Label>
                     <Form.Control name="title" value={state.title} onChange={handleChange} type="text" placeholder="Title" />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicAuthor">
-                    <Form.Label>Author</Form.Label>
+                    <Form.Label>Автор</Form.Label>
                     <Form.Control name="author" value={state.author} onChange={handleChange} type="text" placeholder="Author" />
                 </Form.Group>
 
@@ -95,14 +95,14 @@ const EditBook = (props: any) => {
                 </Form.Group>
 
                 <Form.Group controlId="formBasicCategory">
-                    <Form.Label>Category</Form.Label>
+                    <Form.Label>Категория</Form.Label>
                     <Form.Control name="category" as="select" value={state.category} onChange={handleChange}>
                         { categories.map((c: any) => <option key={c.id} value={c.id}>{c.text}</option>) }
                     </Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicBranchOfLibrary">
-                    <Form.Label>Branch Of Library</Form.Label>
+                    <Form.Label>Филиал на библиотеката</Form.Label>
                     <Form.Control name="branch_of_library" as="select" value={state.branch_of_library} onChange={handleChange}>
                         { branches.map((b: any) => <option key={b.id} value={b.id}>{b.text}</option>) }
                     </Form.Control>
@@ -114,12 +114,12 @@ const EditBook = (props: any) => {
                 </Form.Group>
 
                 <Form.Group controlId="formBasicQuantity">
-                    <Form.Label>Quantity</Form.Label>
+                    <Form.Label>Количество</Form.Label>
                     <Form.Control name="quantity" value={state.quantity} onChange={handleChange} type="number" placeholder="Quantity" />
                 </Form.Group>
 
                 <Button variant="primary" type="submit" disabled={!isFormValid()}>
-                    Update Book
+                    Актуализирай книга
                 </Button>
 
                 {error && <Alert className="mt-5" variant="danger">{error}</Alert>}
