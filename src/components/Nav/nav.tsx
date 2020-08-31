@@ -13,10 +13,10 @@ const Navigation = () => (
         <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
                 {!getToken() && <Link className="nav-link" to="/login">
-                    Login
+                    Вход
                 </Link>}
                 {getToken() && checkIsAdmin() && <Link className="nav-link" to="/admin">
-                    Admin
+                    Админ
                 </Link>}
             </Nav>
             <Form inline>
@@ -24,7 +24,7 @@ const Navigation = () => (
                 <Button variant="outline-success">Search</Button>
             </Form>
             {getToken() && <Button variant="default" className="ml-5" onClick={logout}>
-                    Logout
+                    Изход
             </Button>}
         </Navbar.Collapse>
     </Navbar>
