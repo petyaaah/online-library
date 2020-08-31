@@ -88,32 +88,32 @@ const AddUser = () => {
             <Form className="col-6" onSubmit={onSubmit}>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email адрес</Form.Label>
-                    <Form.Control type="email" name="email" placeholder="Enter email" onChange={handleChange} />
+                    <Form.Control type="email" name="email" placeholder="Въведете email адрес" onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicUsername">
                     <Form.Label>Потребителско име</Form.Label>
-                    <Form.Control type="text" name="username" placeholder="Enter username" onChange={handleChange} />
+                    <Form.Control type="text" name="username" placeholder="Въведете потребителско име" onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicName">
                     <Form.Label>Име</Form.Label>
-                    <Form.Control type="text" name="name" placeholder="Enter name" onChange={handleChange} />
+                    <Form.Control type="text" name="name" placeholder="Въведете име" onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicAddress">
                     <Form.Label>Адрес</Form.Label>
-                    <Form.Control type="text" name="address" placeholder="Enter address" onChange={handleChange} />
+                    <Form.Control type="text" name="address" placeholder="Въведете адрес" onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPhone">
                     <Form.Label>Телефон</Form.Label>
-                    <Form.Control type="text" name="phone" placeholder="Enter phone" onChange={handleChange} />
+                    <Form.Control type="text" name="phone" placeholder="Въведете телефон" onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicReaderNumber">
                     <Form.Label>Читателски номер</Form.Label>
-                    <Form.Control type="text" name="reader_number" placeholder="Enter reader number" onChange={handleChange} />
+                    <Form.Control type="text" name="reader_number" placeholder="Въведете читателски номер" onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicBranchOfLibrary">
@@ -125,7 +125,7 @@ const AddUser = () => {
 
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Парола</Form.Label>
-                    <Form.Control type="password" name="password" placeholder="Password" onChange={handleChange} />
+                    <Form.Control type="password" name="password" placeholder="Парола" onChange={handleChange} />
                 </Form.Group>
                 <Form.Group controlId="formBasicRole">
                     <Form.Label>Роля</Form.Label>
@@ -134,7 +134,7 @@ const AddUser = () => {
                     </Form.Control>
                 </Form.Group>
                 <Button variant="primary" type="submit" disabled={!isFormValid()}>
-                    Add User
+                    Добави потребител
                 </Button>
                 {error && <Alert className="mt-5" variant="danger">{error}</Alert>}
                 {success && <Alert className="mt-5" variant="success">{success}</Alert>}
