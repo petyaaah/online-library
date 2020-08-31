@@ -83,12 +83,12 @@ const AddBook = () => {
             <Form className="col-6" onSubmit={onSubmit}>
                 <Form.Group controlId="formBasicTitle">
                     <Form.Label>Заглавие</Form.Label>
-                    <Form.Control name="title" value={state.title} onChange={handleChange} type="text" placeholder="Title" />
+                    <Form.Control name="title" value={state.title} onChange={handleChange} type="text" placeholder="Заглавие" />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicAuthor">
                     <Form.Label>Автор</Form.Label>
-                    <Form.Control name="author" value={state.author} onChange={handleChange} type="text" placeholder="Author" />
+                    <Form.Control name="author" value={state.author} onChange={handleChange} type="text" placeholder="Автор" />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicIBSN">
@@ -117,7 +117,7 @@ const AddBook = () => {
 
                 <Form.Group controlId="formBasicQuantity">
                     <Form.Label>Количество</Form.Label>
-                    <Form.Control name="quantity" value={state.quantity} onChange={handleChange} type="number" placeholder="Quantity" />
+                    <Form.Control name="quantity" value={state.quantity} onChange={handleChange} type="number" placeholder="Количество" />
                 </Form.Group>
 
                 <Button variant="primary" type="submit" disabled={!isFormValid()}>
