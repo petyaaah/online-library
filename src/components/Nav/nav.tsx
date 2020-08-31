@@ -7,7 +7,7 @@ import { getToken, checkIsAdmin, logout } from '../../utils/auth'
 const Navigation = () => (
     <Navbar bg="light" expand="lg">
         <Link className="navbar-brand" to="/">
-            Online Library
+            Портал на библиотеката
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
