@@ -33,7 +33,7 @@ const Login = (props: any) => {
                 props.history.push('/')
                 window.location.reload()
             } catch (error) {
-                setError("Something went wrong!")
+                setError("Нещо се обърка!")
             }
         } else {
             setError(result.status_txt)
@@ -53,7 +53,7 @@ const Login = (props: any) => {
                     <Form.Control value={state.password} name="password" type="password" placeholder="Password" onChange={handleChange} />
                 </Form.Group>
                 <Button variant="primary" type="submit">
-                    Submit
+                    Вход
                 </Button>
                 {error && <Alert className="mt-5" variant="danger">{error}</Alert>}
             </Form>
