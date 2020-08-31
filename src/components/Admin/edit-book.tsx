@@ -65,8 +65,10 @@ const EditBook = (props: any) => {
         const result = await response.json();
         if (result.status) {
             setSuccess(result.status_txt);
+            setError("");
         } else {
             setError(result.status_txt);
+            setSuccess("");
         }
     };
 
@@ -109,7 +111,7 @@ const EditBook = (props: any) => {
                 </Form.Group>
 
                 <Form.Group controlId="formBasicImage">
-                    <img className="mb-3" src={state.image} alt="book_image" style={{ width: '200px', height: '300px' }} />
+                    <img className="mb-3" src={state.image} alt="book_image" style={{ width: '200px' }} />
                     <FileBase64 onDone={handleImageChange} />
                 </Form.Group>
 

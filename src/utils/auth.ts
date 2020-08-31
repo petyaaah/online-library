@@ -16,7 +16,18 @@ export const checkIsAdmin = () => {
         window.location.reload();
         return false;
     }
+}
 
+export const getBranchOfLibrary = () => {
+    const token = getToken();
+    if (!token) return false;
+    try {
+        const decoded: any = jwt.verify(token || '', jwtSecret)
+        return decoded.branch_of_library;
+    } catch (e) {
+        console.error(e)
+        return false;
+    }
 }
 
 export const logout = () => {

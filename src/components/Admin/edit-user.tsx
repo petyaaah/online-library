@@ -61,8 +61,10 @@ const EditUser = (props: any) => {
         const result = await response.json();
         if (result.status) {
             setSuccess(result.status_txt);
+            setError("");
         } else {
             setError(result.status_txt);
+            setSuccess("");
         }
     };
 

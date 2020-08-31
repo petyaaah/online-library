@@ -63,9 +63,11 @@ const AddBook = () => {
                 branch_of_library: "",
                 image: "",
                 quantity: 1
-            })
+            });
+            setError("");
         } else {
             setError(result.status_txt);
+            setSuccess("");
         }
     };
 
@@ -109,7 +111,7 @@ const AddBook = () => {
                 </Form.Group>
 
                 <Form.Group controlId="formBasicImage">
-                    {state.image && <img className="mb-3" src={state.image} alt="book_image" style={{ width: '200px', height: '300px' }} />}
+                    {state.image && <img className="mb-3" src={state.image} alt="book_image" style={{ width: '200px' }} />}
                     <FileBase64 onDone={handleImageChange} />
                 </Form.Group>
 

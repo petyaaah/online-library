@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { serverUrl } from '../../config';
-import { getToken } from '../../utils/auth';
+import { getToken, checkIsAdmin, getBranchOfLibrary } from '../../utils/auth';
 
 const Home = () => {
     const [books, setBooks] = useState([]);
     useEffect(() => {
+        const branch_of_library = checkIsAdmin() ? false : getBranchOfLibrary();
         fetch(`${serverUrl}/books/getBooks`, { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ token: getToken() })
+            body: JSON.stringify({ token: getToken(), branch_of_library })
         }).then(response => response.json()).then((resp: any) => {
             setBooks(resp.data)
         }).catch((e: any) => {

@@ -69,9 +69,11 @@ const AddUser = () => {
                 branch_of_library: '',
                 password: '',
                 role: '',
-            })
+            });
+            setError("");
         } else {
             setError(result.status_txt);
+            setSuccess("");
         }
     };
 
