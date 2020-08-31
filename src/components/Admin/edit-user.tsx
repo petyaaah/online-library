@@ -73,32 +73,32 @@ const EditUser = (props: any) => {
             <Form className="col-6" onSubmit={onSubmit}>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email адрес</Form.Label>
-                    <Form.Control type="email" name="email" placeholder="Enter email" value={state.email} onChange={handleChange} />
+                    <Form.Control type="email" name="email" placeholder="Въведете email адрес" value={state.email} onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicUsername">
                     <Form.Label>Потребителско име</Form.Label>
-                    <Form.Control type="text" name="username" placeholder="Enter username" value={state.username} onChange={handleChange} />
+                    <Form.Control type="text" name="username" placeholder="Въведете потребителско име" value={state.username} onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicName">
                     <Form.Label>Име</Form.Label>
-                    <Form.Control type="text" name="name" placeholder="Enter name" value={state.name} onChange={handleChange} />
+                    <Form.Control type="text" name="name" placeholder="Въведете име" value={state.name} onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicAddress">
                     <Form.Label>Адрес</Form.Label>
-                    <Form.Control type="text" name="address" placeholder="Enter address" value={state.address} onChange={handleChange} />
+                    <Form.Control type="text" name="address" placeholder="Въведете адрес" value={state.address} onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPhone">
                     <Form.Label>Телефон</Form.Label>
-                    <Form.Control type="text" name="phone" placeholder="Enter phone" value={state.phone} onChange={handleChange} />
+                    <Form.Control type="text" name="phone" placeholder="Въведете телефон" value={state.phone} onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicReaderNumber">
                     <Form.Label>Читателски номер</Form.Label>
-                    <Form.Control type="text" name="reader_number" placeholder="Enter reader number" value={state.reader_number} onChange={handleChange} />
+                    <Form.Control type="text" name="reader_number" placeholder="Въведете читателски номер" value={state.reader_number} onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicBranchOfLibrary">
