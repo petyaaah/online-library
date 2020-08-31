@@ -73,7 +73,7 @@ const Books = (props:any) => {
                 <Button className="mr-1" variant="warning" onClick={() => editBook(book)}>
                     Актуализиране
                 </Button>
-                <Button variant="danger" onClick={() => deleteBook(book)}>Delete</Button>
+                <Button variant="danger" onClick={() => deleteBook(book)}>Изтриване</Button>
             </td>
         </tr>
     ))
