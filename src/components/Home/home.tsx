@@ -42,7 +42,7 @@ const Home = () => {
     
     return (
         <>
-            <h1 className="mt-5 mb-5">Book Store</h1>
+            <h1 className="mt-5 mb-5">Библиотека</h1>
             <Container>
                 <Row>
                     { renderBooks() }
