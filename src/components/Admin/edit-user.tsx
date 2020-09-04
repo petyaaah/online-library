@@ -56,7 +56,7 @@ const EditUser = (props: any) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({...state, token: getToken()}),
+            body: JSON.stringify({...state}),
         });
         const result = await response.json();
         if (result.status) {

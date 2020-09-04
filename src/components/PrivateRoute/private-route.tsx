@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-import { getToken, checkIsAdmin } from '../../utils/auth'
+import { getToken, checkIsAdmin, checkIsChiefLibrarian, checkIsLibrarian } from '../../utils/auth'
 
 export const PrivateRoute = ({ component: Component, ...rest }: any) => (
     <Route {...rest} render={props => (
@@ -13,7 +13,7 @@ export const PrivateRoute = ({ component: Component, ...rest }: any) => (
 
 export const AdminRoute = ({ component: Component, ...rest }: any) => (
     <Route {...rest} render={props => (
-        checkIsAdmin()
+        checkIsAdmin() || checkIsChiefLibrarian() || checkIsLibrarian()
             ? <Component {...props} />
             : <Redirect to={{ pathname: '/', state: { from: props.location } }} />
     )} />

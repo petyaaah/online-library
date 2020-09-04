@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import { getToken, checkIsAdmin, logout } from '../../utils/auth'
+import { getToken, checkIsAdmin, logout, checkIsChiefLibrarian, checkIsLibrarian } from '../../utils/auth'
 
 const Navigation = () => (
     <Navbar bg="light" expand="lg">
@@ -15,7 +15,10 @@ const Navigation = () => (
                 {!getToken() && <Link className="nav-link" to="/login">
                     Вход
                 </Link>}
-                {getToken() && checkIsAdmin() && <Link className="nav-link" to="/admin">
+                {!getToken() && <Link className="nav-link" to="/register">
+                    Регистрация
+                </Link>}
+                {getToken() && (checkIsAdmin() || checkIsChiefLibrarian() || checkIsLibrarian()) && <Link className="nav-link" to="/admin">
                     Админ
                 </Link>}
             </Nav>

@@ -92,7 +92,7 @@ const Users = (props: any) => {
                 {Object.keys(user).map((key: any) => {
                     if (key === 'approved') {
                         return (
-                            <td key={key}>{user[key] ? 'Yes' : approveBtn(user.id)}</td>
+                            <td key={key}>{user[key] ? 'Да' : approveBtn(user.id)}</td>
                         )
                     }
                     if (key === 'role') {

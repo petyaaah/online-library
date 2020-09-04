@@ -13,8 +13,8 @@ const AddBook = () => {
         title: "",
         author: "",
         IBSN: "",
-        category: "",
-        branch_of_library: "",
+        category: 1,
+        branch_of_library: 1,
         image: "",
         quantity: 1
     });
@@ -59,8 +59,8 @@ const AddBook = () => {
                 title: "",
                 author: "",
                 IBSN: "",
-                category: "",
-                branch_of_library: "",
+                category: 1,
+                branch_of_library: 1,
                 image: "",
                 quantity: 1
             });
@@ -98,14 +98,14 @@ const AddBook = () => {
 
                 <Form.Group controlId="formBasicCategory">
                     <Form.Label>Категория</Form.Label>
-                    <Form.Control name="category" as="select" onChange={handleChange}>
+                    <Form.Control name="category" value={state.category} as="select" onChange={handleChange}>
                         { categories.map((c: any) => <option key={c.id} value={c.id}>{c.text}</option>) }
                     </Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicBranchOfLibrary">
                     <Form.Label>Филиал на библиотеката</Form.Label>
-                    <Form.Control name="branch_of_library" as="select" onChange={handleChange}>
+                    <Form.Control name="branch_of_library" value={state.branch_of_library} as="select" onChange={handleChange}>
                         { branches.map((b: any) => <option key={b.id} value={b.id}>{b.text}</option>) }
                     </Form.Control>
                 </Form.Group>

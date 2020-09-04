@@ -8,16 +8,15 @@ export const getRoles = async () =>
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ token: getToken() })
-    });
+});
 
 export const getBranches = async () =>
     await fetch(`${serverUrl}/branches/getBranchesOfLibrary`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token: getToken() })
-    });
+        }
+});
 
 export const getCategories = async () =>
     await fetch(`${serverUrl}/categories/getBookCategories`, {
@@ -26,4 +25,4 @@ export const getCategories = async () =>
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ token: getToken() })
-    });
+});

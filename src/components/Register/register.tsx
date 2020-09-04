@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Row, Alert } from 'react-bootstrap';
 import { serverUrl } from '../../config';
-import { getToken } from '../../utils/auth';
-import {getRoles, getBranches} from '../../utils/constants';
+import { getBranches } from '../../utils/constants';
+import { withRouter } from 'react-router-dom';
 
-const AddUser = () => {
+const Register = () => {
     const [state, setState] = useState({
         email: '',
         username: '',
@@ -14,19 +14,13 @@ const AddUser = () => {
         reader_number: '',
         branch_of_library: 1,
         password: '',
-        role: 1,
     });
 
-    const [roles, setRoles]: any = useState([]);
     const [branches, setBranches]: any = useState([]);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
     useEffect(() => {
-        getRoles().then((resp:any) => resp.json()).then((response: any) => {
-            const result: any = Object.keys(response.data).map((k: string) => response.data[k]);
-            setRoles(result);
-        })
         getBranches().then((resp:any) => resp.json()).then((response: any) => {
             const result: any = Object.keys(response.data).map((k: string) => response.data[k]);
             setBranches(result);
@@ -45,7 +39,7 @@ const AddUser = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({...state, token: getToken()}),
+            body: JSON.stringify({...state}),
         });
         const result = await response.json();
         if (result.status) {
@@ -59,7 +53,6 @@ const AddUser = () => {
                 reader_number: '',
                 branch_of_library: 1,
                 password: '',
-                role: 1,
             });
             setError("");
         } else {
@@ -109,7 +102,7 @@ const AddUser = () => {
 
                 <Form.Group controlId="formBasicBranchOfLibrary">
                     <Form.Label>Филиал на библиотеката</Form.Label>
-                    <Form.Control name="branch_of_library" value={state.branch_of_library} as="select" onChange={handleChange}>
+                    <Form.Control name="branch_of_library" as="select" value={state.branch_of_library} onChange={handleChange}>
                         { branches.map((b: any) => <option key={b.id} value={b.id}>{b.text}</option>) }
                     </Form.Control>
                 </Form.Group>
@@ -118,14 +111,8 @@ const AddUser = () => {
                     <Form.Label>Парола</Form.Label>
                     <Form.Control type="password" name="password" value={state.password} placeholder="Парола" onChange={handleChange} />
                 </Form.Group>
-                <Form.Group controlId="formBasicRole">
-                    <Form.Label>Роля</Form.Label>
-                    <Form.Control name="role" value={state.role} as="select" onChange={handleChange}>
-                        { roles.map((r: any) => <option key={r.id} value={r.id}>{r.text}</option>) }
-                    </Form.Control>
-                </Form.Group>
                 <Button variant="primary" type="submit" disabled={!isFormValid()}>
-                    Добави потребител
+                    Регистрация
                 </Button>
                 {error && <Alert className="mt-5" variant="danger">{error}</Alert>}
                 {success && <Alert className="mt-5" variant="success">{success}</Alert>}
@@ -134,4 +121,4 @@ const AddUser = () => {
     );
 }
 
-export default AddUser;
+export default withRouter(Register);
