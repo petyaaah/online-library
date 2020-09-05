@@ -79,7 +79,7 @@ const AddBook = () => {
     };
 
     return (
-        <Row className="d-flex justify-content-center">
+        <Row className="d-flex justify-content-center mt-5">
             <Form className="col-6" onSubmit={onSubmit}>
                 <Form.Group controlId="formBasicTitle">
                     <Form.Label>Заглавие</Form.Label>

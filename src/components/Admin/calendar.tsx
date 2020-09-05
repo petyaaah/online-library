@@ -140,7 +140,7 @@ const Calendar = () => {
       
     return (
         <>
-            <h1>Календар</h1>
+            <h1 className="mt-3">Календар</h1>
             <FullCalendar 
                     plugins={[dayGridPlugin, interactionPlugin]}
                     editable={true}

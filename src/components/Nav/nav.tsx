@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { getToken, checkIsAdmin, logout, checkIsChiefLibrarian, checkIsLibrarian } from '../../utils/auth'
 
 const Navigation = () => (
-    <Navbar bg="light" expand="lg">
+    <Navbar className="site-header" expand="lg">
         <Link className="navbar-brand" to="/">
             Портал на библиотеката
         </Link>
