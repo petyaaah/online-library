@@ -44,6 +44,14 @@
   display: block;
 }
 
+.modal-dialog {
+  max-width: 70% !important;
+}
+
+.react-datepicker-wrapper, .react-datepicker-wrapper input{
+  width: 100%;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
