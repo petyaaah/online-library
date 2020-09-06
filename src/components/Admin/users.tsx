@@ -113,6 +113,8 @@ const Users = (props: any) => {
                     <Button className="mr-1" variant="warning" onClick={() => editUser(user)}>
                         Актуализиране
                     </Button>
+                </td>
+                <td>
                     <Button variant="danger" onClick={() => deleteUser(user)}>Изтриване</Button>
                 </td>
             </tr>
@@ -133,7 +135,8 @@ const Users = (props: any) => {
                     <th>Email</th>
                     <th>Роля</th>
                     <th>Потвърден</th>
-                    <th>Действия</th>
+                    <th>#</th>
+                    <th>#</th>
                 </tr>
             </thead>
             <tbody>

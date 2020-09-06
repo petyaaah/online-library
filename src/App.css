@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #F9DCC4;
 }
 
 .App-logo {
@@ -13,8 +14,11 @@
   }
 }
 
+.site-header{
+  background-color: #FEC89A;
+}
+
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -42,6 +46,14 @@
   height: 100%;
   max-width: 100%;
   display: block;
+}
+
+.modal-dialog {
+  max-width: 70% !important;
+}
+
+.react-datepicker-wrapper, .react-datepicker-wrapper input{
+  width: 100%;
 }
 
 @keyframes App-logo-spin {

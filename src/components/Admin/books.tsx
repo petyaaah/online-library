@@ -73,6 +73,8 @@ const Books = (props:any) => {
                 <Button className="mr-1" variant="warning" onClick={() => editBook(book)}>
                     Актуализиране
                 </Button>
+            </td>
+            <td>
                 <Button variant="danger" onClick={() => deleteBook(book)}>Изтриване</Button>
             </td>
         </tr>
@@ -102,7 +104,8 @@ const Books = (props:any) => {
                     <th>Библиотека</th>
                     <th>Снимка</th>
                     <th>Количество</th>
-                    <th>Действие</th>
+                    <th>#</th>
+                    <th>#</th>
                 </tr>
             </thead>
             <tbody>

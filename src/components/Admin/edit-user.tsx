@@ -56,7 +56,7 @@ const EditUser = (props: any) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({...state}),
+            body: JSON.stringify({...state, token: getToken()}),
         });
         const result = await response.json();
         if (result.status) {
@@ -69,7 +69,7 @@ const EditUser = (props: any) => {
     };
 
     return (
-        <Row className="d-flex justify-content-center">
+        <Row className="d-flex justify-content-center mt-5">
             <Form className="col-6" onSubmit={onSubmit}>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email адрес</Form.Label>
