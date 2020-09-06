@@ -8,7 +8,7 @@ import Calendar from './calendar';
 import Books from './books';
 import AddBook from './add-book';
 import EditBook from './edit-book';
-import { checkIsAdmin, checkIsChiefLibrarian } from '../../utils/auth';
+import { checkIsAdmin, checkIsChiefLibrarian, checkIsReader, checkIsLibrarian } from '../../utils/auth';
 
 const Admin = () => {
     return (
@@ -45,25 +45,25 @@ const Admin = () => {
             <Col xs={12}>
                 <Switch>
                     <Route path="/admin/users">
-                        <Users />
+                        {!checkIsAdmin() && !checkIsChiefLibrarian() ? <Redirect to="/" /> : <Users />}
                     </Route>
                     <Route path="/admin/add-user">
-                        <AddUser />
+                        {!checkIsAdmin() ? <Redirect to="/" /> : <AddUser />}
                     </Route>
                     <Route path="/admin/edit-user/:id">
-                        <EditUser />
+                        {checkIsReader() || checkIsLibrarian() ? <Redirect to="/" /> : <EditUser />}
                     </Route>
                     <Route path="/admin/books">
-                        <Books />
+                        {checkIsReader() ? <Redirect to="/" /> : <Books />}
                     </Route>
                     <Route path="/admin/add-book">
-                        <AddBook />
+                        {checkIsReader() ? <Redirect to="/" /> : <AddBook />}
                     </Route>
                     <Route path="/admin/edit-book/:id">
-                        <EditBook />
+                        {checkIsReader() ? <Redirect to="/" /> : <EditBook />}
                     </Route>
                     <Route path="/admin/calendar">
-                        <Calendar />
+                        {checkIsReader() ? <Redirect to="/" /> : <Calendar />}
                     </Route>
                 </Switch>
             </Col>
