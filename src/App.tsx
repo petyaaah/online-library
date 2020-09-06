@@ -9,6 +9,8 @@ import './App.css';
 
 import { PrivateRoute, AdminRoute } from './components/PrivateRoute/private-route'
 import { Container } from 'react-bootstrap';
+import ReaderCalendar from './components/ReaderCalendar/readerCalendar';
+import Contact from './components/Contact/contact';
 
 function App() {
     return (
@@ -21,6 +23,8 @@ function App() {
                         <Route exact path="/register" component={Register} />
                         <AdminRoute path="/admin" component={Admin} />
                         <PrivateRoute exact path="/" component={Home} />
+                        <PrivateRoute exact path="/calendar-view" component={ReaderCalendar} />
+                        <PrivateRoute exact path="/contact" component={Contact} />
                     </Switch>
                 </Container>
                 <footer className="footer mt-auto py-3" style={{ backgroundColor: '#f5f5f5' }}>

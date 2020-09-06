@@ -6,15 +6,17 @@ import interactionPlugin from '@fullcalendar/interaction';
 import DatePicker, { registerLocale  } from 'react-datepicker';
 import bg from "date-fns/locale/bg";
 import "react-datepicker/dist/react-datepicker.css";
-import { Modal, Button, Row, Form } from 'react-bootstrap';
-import { getToken } from '../../utils/auth';
+import { Modal, Button, Row, Form, Alert } from 'react-bootstrap';
+import { getToken, checkIsAdmin, checkIsChiefLibrarian, checkIsLibrarian, getBranchOfLibrary } from '../../utils/auth';
+import { getBranches } from '../../utils/constants';
 registerLocale("bg", bg);
 
 const Calendar = () => {
     const [state, setState] = useState({
         title: "",
         start: new Date(),
-        end: new Date()
+        end: new Date(),
+        branch_of_library: 1
     });
 
     const [events, setEvents] = useState([]);
@@ -22,14 +24,19 @@ const Calendar = () => {
     const [success, setSuccess] = useState('');
     const [isEdit, setIsEdit] = useState(false);
     const [id, setId] = useState("");
+    const [branches, setBranches]: any = useState([]);
 
     const getEvents = () => {
+        let branch_of_library = null;
+        if (checkIsChiefLibrarian() || checkIsLibrarian()) {
+            branch_of_library = getBranchOfLibrary();
+        }
         fetch(`${serverUrl}/calendar/getEvents`, { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ token: getToken() })
+            body: JSON.stringify({ branch_of_library, token: getToken() })
         }).then(response => response.json()).then((resp: any) => {
             setEvents(resp.data)
         }).catch((e: any) => {
@@ -39,6 +46,11 @@ const Calendar = () => {
 
     useEffect(() => {
         getEvents();
+
+        getBranches().then((resp:any) => resp.json()).then((response: any) => {
+            const result: any = Object.keys(response.data).map((k: string) => response.data[k]);
+            setBranches(result);
+        })
     }, []);
 
     const [show, setShow] = useState(false);
@@ -53,18 +65,23 @@ const Calendar = () => {
     };
 
     const handleEventClick = (data: any) => {
+        const event: any = events.filter((e:any) => e.id === Number(data.event.id));
         setShow(true);
         setState({ 
             ...state, 
             title: data.event.title,
             start: data.event.start,
             end: data.event.end,
+            branch_of_library: event[0].branch_of_library,
         });
         setIsEdit(true);
         setId(data.event.id);
     };
 
     const createEvent = async () => {
+        if (checkIsChiefLibrarian() || checkIsLibrarian()) {
+            setState({...state, branch_of_library: getBranchOfLibrary()})
+        }
         const response = await fetch(`${serverUrl}/calendar/create`, {
             method: 'POST',
             headers: {
@@ -78,7 +95,8 @@ const Calendar = () => {
             setState({
                 title: "",
                 start: new Date(),
-                end: new Date()
+                end: new Date(),
+                branch_of_library: 1,
             });
             setError("");
             getEvents()
@@ -109,7 +127,6 @@ const Calendar = () => {
 
     const handleAddEventClick = async (e: any) => {
         if (e) e.preventDefault();
-        console.log(isEdit)
         if (isEdit) {
             await editEvent();
         } else {
@@ -120,13 +137,21 @@ const Calendar = () => {
 
     const handleDeleteEventClick = async (e: any) => {
         e.preventDefault();
-        await fetch(`${serverUrl}/calendar/deleteEvent`, { 
+        const response = await fetch(`${serverUrl}/calendar/deleteEvent`, { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ token: getToken(), id })
         })
+        const result = response.json();
+        setIsEdit(false);
+        setState({
+            title: "",
+            start: new Date(),
+            end: new Date(),
+            branch_of_library: 1,
+        });
         getEvents();
     }
 
@@ -169,6 +194,13 @@ const Calendar = () => {
                                     <Form.Control name="title" value={state.title} onChange={handleChange} type="text" placeholder="Заглавие" />
                                 </Form.Group>
 
+                                {checkIsAdmin() && <Form.Group controlId="formBasicBranchOfLibrary">
+                                    <Form.Label>Филиал на библиотеката</Form.Label>
+                                    <Form.Control name="branch_of_library" value={state.branch_of_library} as="select" onChange={handleChange}>
+                                        { branches.map((b: any) => <option key={b.id} value={b.id}>{b.text}</option>) }
+                                    </Form.Control>
+                                </Form.Group>}
+
                                 <Form.Group controlId="formBasicAuthor">
                                     <Form.Label style={{ display: "block" }}>От</Form.Label>
                                     <DatePicker
@@ -196,12 +228,24 @@ const Calendar = () => {
                                         timeClassName={handleColor}
                                         />
                                 </Form.Group>
+
+                                {error && <Alert className="mt-5" variant="danger">{error}</Alert>}
+                                {success && <Alert className="mt-5" variant="success">{success}</Alert>}
                             </Form>
                         </Row>
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={() => { setShow(false); setIsEdit(false); }}>Затвори</Button>
+                        <Button 
+                            variant="secondary" 
+                            onClick={() => { 
+                                setShow(false); 
+                                setIsEdit(false); 
+                                setSuccess("");
+                                setError("");
+                           }}>
+                                Затвори
+                        </Button>
                         <Button variant="primary" onClick={handleAddEventClick}>Запази</Button>
                         {isEdit && <Button variant="danger" onClick={handleDeleteEventClick}>Изтрий</Button>}
                     </Modal.Footer>

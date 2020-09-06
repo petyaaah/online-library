@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import { Row, Col, Nav } from 'react-bootstrap';
 import Users from './users';
 import AddUser from './add-user';
@@ -8,14 +8,14 @@ import Calendar from './calendar';
 import Books from './books';
 import AddBook from './add-book';
 import EditBook from './edit-book';
-import { checkIsAdmin } from '../../utils/auth';
+import { checkIsAdmin, checkIsChiefLibrarian } from '../../utils/auth';
 
 const Admin = () => {
     return (
         <Row className="d-flex justify-content-center">
             <Col className="d-flex justify-content-center" xs={12}>
                 <Nav>
-                    {checkIsAdmin() && <Nav.Item>
+                    {(checkIsAdmin() || checkIsChiefLibrarian()) && <Nav.Item>
                         <Link className="nav-link" to="/admin/users">
                             Потребители
                         </Link>
@@ -44,9 +44,12 @@ const Admin = () => {
             </Col>
             <Col xs={12}>
                 <Switch>
+                    {checkIsAdmin() || checkIsChiefLibrarian() ?
                     <Route path="/admin/users">
                         <Users />
                     </Route>
+                    : <Redirect to={"/"} />
+                    }
                     <Route path="/admin/add-user">
                         <AddUser />
                     </Route>

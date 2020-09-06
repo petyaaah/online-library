@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Button, Table } from 'react-bootstrap';
 import { serverUrl } from '../../config';
-import { getToken } from '../../utils/auth';
+import { getToken, checkIsChiefLibrarian, checkIsLibrarian, getBranchOfLibrary } from '../../utils/auth';
 import {getBranches, getCategories} from "../../utils/constants";
 
 const Books = (props:any) => {
@@ -11,12 +11,16 @@ const Books = (props:any) => {
     const [branches, setBranches] = useState([]);
 
     useEffect(() => {
+        let branch_of_library = null;
+        if (checkIsChiefLibrarian() || checkIsLibrarian()) {
+            branch_of_library = getBranchOfLibrary();
+        }
         fetch(`${serverUrl}/books/getBooks`, { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ token: getToken() })
+            body: JSON.stringify({ branch_of_library, token: getToken() })
         }).then(response => response.json()).then((resp: any) => {
             setBooks(resp.data)
         }).catch((e: any) => {
@@ -89,17 +93,16 @@ const Books = (props:any) => {
             body: JSON.stringify({ token: getToken(), id: book.id })
         })
         setBooks(books.filter((u: any) => u.id !== book.id))
-        console.log(result)
     }
 
     return (
         <Table striped bordered responsive>
             <thead>
                 <tr>
+                    <th>Номер</th>
                     <th>Заглавие</th>
                     <th>Автор</th>
                     <th>IBSN</th>
-                    <th>Телефон</th>
                     <th>Категория</th>
                     <th>Библиотека</th>
                     <th>Снимка</th>

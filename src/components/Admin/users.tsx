@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import { serverUrl } from '../../config';
-import { getToken } from '../../utils/auth';
+import { getToken, checkIsChiefLibrarian, getBranchOfLibrary, checkIsAdmin } from '../../utils/auth';
 import {withRouter} from "react-router-dom";
 import {getBranches, getRoles} from "../../utils/constants";
 
@@ -11,20 +11,29 @@ const Users = (props: any) => {
     const [branches, setBranches] = useState([]);
 
     useEffect(() => {
+        let branch_of_library = null;
+        if (checkIsChiefLibrarian()) {
+            branch_of_library = getBranchOfLibrary();
+        }
         fetch(`${serverUrl}/users/getUsers`, { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ token: getToken() })
+            body: JSON.stringify({ branch_of_library, token: getToken() })
         }).then(response => response.json()).then((resp: any) => {
-            setUsers(resp.data)
+            let users = [];
+            if (checkIsChiefLibrarian()) {
+                users = resp.data.filter((u: any) => u.username !== "admin");
+            } else {
+                users = resp.data;
+            }
+            setUsers(users)
         }).catch((e: any) => {
             console.log(e)
         })
         getRoles().then((resp:any) => resp.json()).then((response: any) => {
             const result: any = Object.keys(response.data).map((k: string) => response.data[k]);
-            console.log(result)
             setRoles(result);
         })
         getBranches().then((resp:any) => resp.json()).then((response: any) => {
@@ -114,9 +123,9 @@ const Users = (props: any) => {
                         Актуализиране
                     </Button>
                 </td>
-                <td>
+                {checkIsAdmin() && <td>
                     <Button variant="danger" onClick={() => deleteUser(user)}>Изтриване</Button>
-                </td>
+                </td>}
             </tr>
         ))
 

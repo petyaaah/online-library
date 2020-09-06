@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import { getToken, checkIsAdmin, logout, checkIsChiefLibrarian, checkIsLibrarian } from '../../utils/auth'
+import { getToken, checkIsAdmin, logout, checkIsChiefLibrarian, checkIsLibrarian, checkIsReader } from '../../utils/auth'
 
 const Navigation = () => (
     <Navbar className="site-header" expand="lg">
@@ -20,6 +20,12 @@ const Navigation = () => (
                 </Link>}
                 {getToken() && (checkIsAdmin() || checkIsChiefLibrarian() || checkIsLibrarian()) && <Link className="nav-link" to="/admin">
                     Админ
+                </Link>}
+                {getToken() && checkIsReader() && <Link className="nav-link" to="/calendar-view">
+                    Календар
+                </Link>}
+                {getToken() && <Link className="nav-link" to="/contact">
+                    Контакти
                 </Link>}
             </Nav>
             {/* <Form inline>
