@@ -44,12 +44,9 @@ const Admin = () => {
             </Col>
             <Col xs={12}>
                 <Switch>
-                    {checkIsAdmin() || checkIsChiefLibrarian() ?
                     <Route path="/admin/users">
                         <Users />
                     </Route>
-                    : <Redirect to={"/"} />
-                    }
                     <Route path="/admin/add-user">
                         <AddUser />
                     </Route>
